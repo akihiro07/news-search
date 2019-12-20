@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <main>
-      <div class="columns medium-3" v-for="result in results" :key="result">
+      <div class="columns medium-3" v-for="(result, index) in results" :key="index">
         <div class="card">
           <div class="card-divider">
             {{ result.title }}
@@ -19,7 +19,7 @@
 import { mapState, mapActions } from 'vuex';
 
 export default {
-  mounted() {
+  created() {
     this.axios();
   },
   methods: {

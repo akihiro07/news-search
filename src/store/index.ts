@@ -14,14 +14,17 @@ export default new Vuex.Store({
     ],
   },
   mutations: {
-    axios(state, hoge) {
-    state.results = hoge;
+    axios(state, results) {
+    state.results = results;
     },
   },
   actions: {
     axios({commit}) {
+      let results:any = [];
       axios.get("https://api.nytimes.com/svc/topstories/v2/home.json?api-key=USiqUqr6LqGR1oAfzxowmaG2CLxd6vxP")
-        .then(response => {this.state.results = response.data.results});
+        .then(response => {results = response.data.results})
+        // TODO:commitの書き方→リファクタリング必要？
+        .then(response => {commit('axios', results)});
     },
   },
   modules: {

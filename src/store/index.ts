@@ -4,29 +4,33 @@ import axios from 'axios';
 
 Vue.use(Vuex);
 
+// "The New York Times Developer Network"のURL
+const NYTBaseUrl = 'https://api.nytimes.com/svc/topstories/v2/';
+const ApiKey = 'USiqUqr6LqGR1oAfzxowmaG2CLxd6vxP';
+
 export default new Vuex.Store({
   state: {
-    results: [
-      {title: 'the very first post', abstract: 'lorem ipsum some test dimpsum'},
-      {title: 'and then there was the second', abstract: 'lorem ipsum some test dimsum'},
-      {title: 'third time\'s a charm', abstract: 'lorem ipsum some test dimsum'},
-      {title: 'four the last time', abstract: 'lorem ipsum some test dimsum'},
-    ],
+    results: [],
   },
   mutations: {
     axios(state, results) {
-    state.results = results;
+      state.results = results;
     },
   },
   actions: {
-    axios({commit}) {
+    axios({commit}, section) {
+      // URL作成,ヘルパー関数
+      function urlCreation(url:any) {
+        return NYTBaseUrl + url + '.json?api-key=' + ApiKey;
+      }
+      // srction,Body.vueの引数(home)
+      let url = urlCreation(section);
       let results:any = [];
-      axios.get("https://api.nytimes.com/svc/topstories/v2/home.json?api-key=USiqUqr6LqGR1oAfzxowmaG2CLxd6vxP")
+      axios.get(url)
         .then(response => {results = response.data.results})
         // TODO:commitの書き方→リファクタリング必要？
-        .then(response => {commit('axios', results)});
+        .then(() => {commit('axios', results)})
+        .catch(error => {console.log(error);});
     },
-  },
-  modules: {
   },
 });

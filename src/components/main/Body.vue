@@ -1,5 +1,6 @@
 <template>
   <div class="body">
+    <Search/>
     <main>
       <div class="row" v-for="(results, index)  in resultsProcess" :key="index">
         <div class="columns large-3 medium-6" v-for="(result, index) in results" :key="index">
@@ -20,10 +21,15 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
+import Search from '@/components/main/Search.vue';
 
 export default {
+  components: {
+    Search,
+  },
   mounted() {
-    this.axios('home');
+    // TODO:mapStateでどうにかならない？
+    this.axios(this.$store.state.section);
   },
   methods: {
     ...mapActions(['axios']),
@@ -46,7 +52,7 @@ export default {
       }
       return chunkedArray;
     },
-    ...mapState(['results']),
+    ...mapState(['results', 'section']),
   },
 };
 </script>

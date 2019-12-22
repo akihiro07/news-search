@@ -8,7 +8,7 @@
 カテゴリ別に表示できる検索機能付き。
 使用API:https://developer.nytimes.com/
 
-![result](https://github.com/akihiro07/news-search/blob/media/newssearch.mov.gif)
+![result](https://github.com/akihiro07/news-search/blob/media/src/assets/newssearch.mov.gif)
 
 ## やらなかったこと
 今回はVue.js＋axios（非同期通信）,vuexの使い方を目的にしていたため、デザインは凝らなかった。

@@ -15,11 +15,14 @@ export default new Vuex.Store({
     results: [],
     sections: SECTIONS.split(', '),
     // defaultのsection
-    section: 'home'
+    section: 'home',
+    loading: true,
   },
   mutations: {
     axios(state, results) {
       state.results = results;
+      // 初回時のみ'loadingプロパティ'→ture
+      state.loading = false;
     },
     changeSection(state, newSection) {
       state.section = newSection;
@@ -31,6 +34,7 @@ export default new Vuex.Store({
       function urlCreation(url:any) {
         return NYTBaseUrl + url + '.json?api-key=' + ApiKey;
       }
+      // srction,Body.vueの引数(home)
       let url = urlCreation(section);
       let results:any = [];
       axios.get(url)
